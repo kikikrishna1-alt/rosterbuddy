@@ -75,6 +75,7 @@ export interface LeagueSettings {
   waiverType: WaiverType;
   beginnerMode: boolean;
   onboardingComplete: boolean;
+  openaiApiKey: string;
 }
 
 export interface AppState {
@@ -82,6 +83,17 @@ export interface AppState {
   players: Player[];
   waivers: WaiverTarget[];
   completedLessons: string[];
+}
+
+/** One row extracted from a screenshot by the AI-assisted import feature. */
+export interface ImportedPlayerRow {
+  name: string;
+  nflTeam: string;
+  position: Position;
+  status: HealthStatus;
+  projectedPoints: number;
+  opponent: string;
+  slotHint: string | null;
 }
 
 export type RecCategory = "doNow" | "watch" | "opportunity";

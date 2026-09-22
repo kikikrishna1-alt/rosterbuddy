@@ -8,11 +8,13 @@ import { STARTER_SLOT_ORDER, SLOT_LABELS, SLOT_BEGINNER_LABELS, eligibleSlotsFor
 import StatusBadge from "@/components/StatusBadge";
 import PlayerFormModal from "@/components/PlayerFormModal";
 import SampleDataBadge from "@/components/SampleDataBadge";
+import ImportScreenshotModal from "@/components/ImportScreenshotModal";
 
 export default function TeamPage() {
   const { league, players, addPlayer, updatePlayer, deletePlayer, movePlayer, resetSampleRoster } =
     useApp();
   const [showAdd, setShowAdd] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [editing, setEditing] = useState<Player | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -42,6 +44,12 @@ export default function TeamPage() {
           className="rounded-full bg-lime px-4 py-2 text-[12px] font-extrabold text-navy-950"
         >
           + Add player
+        </button>
+        <button
+          onClick={() => setShowImport(true)}
+          className="rounded-full border border-lime/30 bg-lime/8 px-4 py-2 text-[12px] font-bold text-lime-dim"
+        >
+          📸 Import from ESPN screenshot
         </button>
         <button
           onClick={() => setConfirmReset(true)}
@@ -147,6 +155,8 @@ export default function TeamPage() {
           }}
         />
       )}
+
+      {showImport && <ImportScreenshotModal onClose={() => setShowImport(false)} />}
 
       {confirmReset && (
         <div

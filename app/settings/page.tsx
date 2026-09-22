@@ -13,6 +13,7 @@ const WAIVER_TYPES: WaiverType[] = ["Rolling Priority", "FAAB", "Reverse Standin
 export default function SettingsPage() {
   const { league, updateLeague, resetSampleRoster, clearRoster } = useApp();
   const [confirmReset, setConfirmReset] = useState(false);
+  const [showKey, setShowKey] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
 
   return (
@@ -113,6 +114,38 @@ export default function SettingsPage() {
             onChange={(v) => updateLeague({ beginnerMode: v })}
             label="Beginner Mode"
           />
+        </div>
+      </section>
+
+      <section className="mt-6 space-y-2.5">
+        <h2 className="px-1 text-[13px] font-extrabold tracking-wide text-white/80">
+          AI-assisted import
+        </h2>
+        <div className="rounded-2xl border border-white/10 bg-navy-800 p-4">
+          <span className="block text-[13px] font-bold text-white">OpenAI API key</span>
+          <span className="mt-0.5 block text-[11.5px] leading-relaxed text-white/50">
+            Optional. Powers &ldquo;Import from ESPN screenshot&rdquo; on the Team page — RosterBuddy
+            sends your screenshot and this key to OpenAI to read the players off it. Get a key
+            (and add a little credit) at platform.openai.com. This key is stored only in your
+            browser and is never sent anywhere except OpenAI, via RosterBuddy&apos;s own import
+            function.
+          </span>
+          <div className="mt-3 flex gap-2">
+            <input
+              type={showKey ? "text" : "password"}
+              value={league.openaiApiKey}
+              onChange={(e) => updateLeague({ openaiApiKey: e.target.value.trim() })}
+              placeholder="sk-…"
+              className="w-full rounded-xl border border-white/15 bg-navy-900 px-3 py-2.5 text-sm text-white outline-none focus:border-lime"
+            />
+            <button
+              type="button"
+              onClick={() => setShowKey((v) => !v)}
+              className="shrink-0 rounded-xl border border-white/15 px-3 text-[11px] font-bold text-white/60"
+            >
+              {showKey ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
       </section>
 

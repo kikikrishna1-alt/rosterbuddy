@@ -10,6 +10,7 @@ export const DEFAULT_LEAGUE: LeagueSettings = {
   waiverType: "Not sure yet",
   beginnerMode: true,
   onboardingComplete: false,
+  openaiApiKey: "",
 };
 
 export function samplePlayers(): Player[] {
