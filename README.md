@@ -21,8 +21,8 @@ someone who has never played fantasy football before.
   recommendation includes the problem, the recommended action, a "Why?"
   explanation, and a "Teach me" beginner explanation — some support a
   one-tap lineup swap.
-- **My Team** — a full roster editor with 9 starter slots (QB, RB, RB, WR,
-  WR, TE, FLEX, D/ST, K) and a bench. Add, edit, delete, and move players
+- **My Team** — a full roster editor with 10 starter slots (QB, RB, RB, WR,
+  WR, TE, FLEX, FLEX, D/ST, K) and a bench. Add, edit, delete, and move players
   between bench and starting slots, with position eligibility enforced
   (e.g. a kicker can't fill a WR slot). Includes a one-tap reset to sample
   data.

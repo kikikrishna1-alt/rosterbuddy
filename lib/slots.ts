@@ -9,7 +9,8 @@ export const STARTER_SLOT_ORDER: StarterSlotId[] = [
   "WR1",
   "WR2",
   "TE",
-  "FLEX",
+  "FLEX1",
+  "FLEX2",
   "DST",
   "K",
 ];
@@ -21,7 +22,8 @@ export const SLOT_LABELS: Record<StarterSlotId, string> = {
   WR1: "WR",
   WR2: "WR",
   TE: "TE",
-  FLEX: "FLEX",
+  FLEX1: "FLEX",
+  FLEX2: "FLEX",
   DST: "D/ST",
   K: "K",
 };
@@ -33,7 +35,8 @@ export const SLOT_BEGINNER_LABELS: Record<StarterSlotId, string> = {
   WR1: "Starting receiver",
   WR2: "Starting receiver",
   TE: "Starting tight end",
-  FLEX: "Flex: RB, WR, or TE",
+  FLEX1: "Flex: RB, WR, or TE",
+  FLEX2: "Flex: RB, WR, or TE",
   DST: "Starting defense",
   K: "Starting kicker",
 };
@@ -45,7 +48,8 @@ const ELIGIBILITY: Record<StarterSlotId, Position[]> = {
   WR1: ["WR"],
   WR2: ["WR"],
   TE: ["TE"],
-  FLEX: ["RB", "WR", "TE"],
+  FLEX1: ["RB", "WR", "TE"],
+  FLEX2: ["RB", "WR", "TE"],
   DST: ["D/ST"],
   K: ["K"],
 };

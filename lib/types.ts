@@ -19,7 +19,8 @@ export type StarterSlotId =
   | "WR1"
   | "WR2"
   | "TE"
-  | "FLEX"
+  | "FLEX1"
+  | "FLEX2"
   | "DST"
   | "K";
 
