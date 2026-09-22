@@ -52,13 +52,14 @@ someone who has never played fantasy football before.
 - **LocalStorage persistence** — your whole setup (league settings, roster,
   waiver board, completed lessons) is saved to your browser's local storage.
   No account, no backend, no database.
-- Ships with clearly labeled **SAMPLE DATA** so the app feels alive on first
-  launch, with a one-tap reset back to that sample data at any time.
+- Roster and waivers start **completely empty** after onboarding — nothing
+  is preloaded. A clearly labeled **SAMPLE DATA** roster is available
+  anytime as a one-tap action in Settings, for trying the app out.
 
 ## AI-assisted import
 
 "Import from ESPN screenshot" (on the Team page) lets you populate your
-bench by photographing/screenshotting your ESPN app instead of typing
+roster by photographing/screenshotting your ESPN app instead of typing
 every player by hand.
 
 It works out of the box for everyone using this deployment — the app owner
@@ -66,18 +67,22 @@ configures one shared OpenAI API key (see **Deploy to Vercel** below), and
 nobody else needs to touch Settings.
 
 1. On the Team page, tap **Import from ESPN screenshot**, then pick a
-   screenshot from your camera roll (or take one on the spot).
-2. The image is resized in your browser, then sent to RosterBuddy's own
+   screenshot from your camera roll (or take one on the spot). If your
+   whole roster doesn't fit on one screen, that's fine — you can add more
+   screenshots to the same review batch before confirming anything.
+2. Each image is resized in your browser, then sent to RosterBuddy's own
    `/api/import-roster` serverless function, which asks OpenAI's
-   `gpt-4o-mini` vision model to read the players off the screen using the
-   shared key.
-3. You get an **editable preview**: every detected player, with a checkbox
-   and editable name/position/status/team/projection fields. Nothing is
-   added to your roster until you review it and tap "Add to bench" —
-   screenshot parsing won't always be perfect (cropped names, ambiguous
-   injury icons), so always double-check before confirming.
-4. Confirmed players land on your **bench**, clearly and never
-   auto-started, so you decide where they go.
+   `gpt-4o-mini` vision model to read the players and their slot (QB, RB,
+   FLEX, Bench, etc.) off the screen using the shared key.
+3. You get an **editable preview**: every detected player, with a checkbox,
+   editable name/position/status/team/projection fields, and a "Goes to"
+   slot picker pre-filled to match what ESPN showed — a starter stays a
+   starter, a bench player stays on the bench. Nothing is added to your
+   roster until you review it and confirm — screenshot parsing won't
+   always be perfect (cropped names, ambiguous injury icons), so always
+   double-check before confirming. If two rows would land in the same
+   starting slot, the later one is automatically bumped to the bench so
+   nothing silently overwrites another player.
 
 **Bring your own key instead (optional):** in **Settings → AI-assisted
 import**, anyone can paste their own OpenAI API key to use their own

@@ -75,10 +75,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const completeOnboarding = useCallback(
     (settings: Omit<LeagueSettings, "onboardingComplete">) => {
       setState((s) => ({
+        ...s,
         league: { ...settings, onboardingComplete: true },
-        players: s.players.length > 0 ? s.players : samplePlayers(),
-        waivers: s.waivers.length > 0 ? s.waivers : sampleWaivers(),
-        completedLessons: s.completedLessons,
       }));
     },
     []

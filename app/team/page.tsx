@@ -9,6 +9,7 @@ import StatusBadge from "@/components/StatusBadge";
 import PlayerFormModal from "@/components/PlayerFormModal";
 import SampleDataBadge from "@/components/SampleDataBadge";
 import ImportScreenshotModal from "@/components/ImportScreenshotModal";
+import PlayerActionSheet from "@/components/PlayerActionSheet";
 
 export default function TeamPage() {
   const { league, players, addPlayer, updatePlayer, deletePlayer, movePlayer, resetSampleRoster } =
@@ -221,7 +222,7 @@ function PlayerRow({
   const eligible = eligibleSlotsForPosition(player.position);
 
   return (
-    <div className="relative flex items-center justify-between gap-2">
+    <div className="flex items-center justify-between gap-2">
       <div className="min-w-0">
         <div className="flex items-center gap-1.5">
           <p className="truncate text-[13.5px] font-bold text-white">{player.name}</p>
@@ -242,7 +243,7 @@ function PlayerRow({
           </p>
         </div>
         <button
-          onClick={() => setMenuOpen((v) => !v)}
+          onClick={() => setMenuOpen(true)}
           className="flex h-8 w-8 items-center justify-center rounded-full text-white/50"
           aria-label="Player options"
         >
@@ -251,44 +252,15 @@ function PlayerRow({
       </div>
 
       {menuOpen && (
-        <div className="absolute right-0 top-10 z-20 w-48 rounded-2xl border border-white/10 bg-navy-700 p-3 shadow-card">
-          <label className="block text-[10px] font-bold text-white/50">
-            Move to
-            <select
-              value={player.slot}
-              onChange={(e) => {
-                onMove(e.target.value as RosterSlot);
-                setMenuOpen(false);
-              }}
-              className="mt-1 w-full rounded-lg border border-white/15 bg-navy-900 px-2 py-1.5 text-[12px] text-white"
-            >
-              <option value="BENCH">Bench</option>
-              {eligible.map((s) => (
-                <option key={s} value={s}>
-                  {SLOT_LABELS[s]}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button
-            onClick={() => {
-              onEdit();
-              setMenuOpen(false);
-            }}
-            className="mt-2 block w-full rounded-lg py-1.5 text-left text-[12px] font-semibold text-lime-dim"
-          >
-            Edit player
-          </button>
-          <button
-            onClick={() => {
-              onDelete();
-              setMenuOpen(false);
-            }}
-            className="mt-1 block w-full rounded-lg py-1.5 text-left text-[12px] font-semibold text-status-bad"
-          >
-            Remove player
-          </button>
-        </div>
+        <PlayerActionSheet
+          playerName={player.name}
+          currentSlot={player.slot}
+          eligibleSlots={eligible}
+          onMove={onMove}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onClose={() => setMenuOpen(false)}
+        />
       )}
     </div>
   );

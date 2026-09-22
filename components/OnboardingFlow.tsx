@@ -223,9 +223,9 @@ export default function OnboardingFlow() {
                 />
               </div>
               <div className="mt-5 rounded-2xl border border-lime/20 bg-lime/5 p-4 text-[13px] leading-relaxed text-white/70">
-                You&apos;re all set, {form.managerName || "there"}. RosterBuddy will load with
-                clearly labeled sample data so the app feels alive immediately — jump into
-                Team to replace it with your real roster whenever you&apos;re ready.
+                You&apos;re all set, {form.managerName || "there"}. Your roster starts empty —
+                head to Team to add your real players, or import them straight from an ESPN
+                screenshot. Want to look around first? Settings has a one-tap sample roster.
               </div>
             </div>
           )}
