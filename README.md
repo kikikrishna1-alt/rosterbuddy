@@ -55,37 +55,42 @@ someone who has never played fantasy football before.
 - Ships with clearly labeled **SAMPLE DATA** so the app feels alive on first
   launch, with a one-tap reset back to that sample data at any time.
 
-## AI-assisted import (optional)
+## AI-assisted import
 
 "Import from ESPN screenshot" (on the Team page) lets you populate your
 bench by photographing/screenshotting your ESPN app instead of typing
-every player by hand:
+every player by hand.
 
-1. Add your own OpenAI API key in **Settings → AI-assisted import**. Get one
-   (and add a little credit — this uses `gpt-4o-mini`, which costs a
-   fraction of a cent per screenshot) at
-   [platform.openai.com](https://platform.openai.com/). A ChatGPT Plus
-   subscription is separate from API billing and won't work here — you need
-   API credit specifically.
-2. On the Team page, tap **Import from ESPN screenshot**, then pick a
+It works out of the box for everyone using this deployment — the app owner
+configures one shared OpenAI API key (see **Deploy to Vercel** below), and
+nobody else needs to touch Settings.
+
+1. On the Team page, tap **Import from ESPN screenshot**, then pick a
    screenshot from your camera roll (or take one on the spot).
-3. The image is resized in your browser, then sent — along with your API
-   key — to RosterBuddy's own `/api/import-roster` serverless function,
-   which asks OpenAI's vision model to read the players off the screen.
-4. You get an **editable preview**: every detected player, with a checkbox
+2. The image is resized in your browser, then sent to RosterBuddy's own
+   `/api/import-roster` serverless function, which asks OpenAI's
+   `gpt-4o-mini` vision model to read the players off the screen using the
+   shared key.
+3. You get an **editable preview**: every detected player, with a checkbox
    and editable name/position/status/team/projection fields. Nothing is
    added to your roster until you review it and tap "Add to bench" —
    screenshot parsing won't always be perfect (cropped names, ambiguous
    injury icons), so always double-check before confirming.
-5. Confirmed players land on your **bench**, clearly and never
+4. Confirmed players land on your **bench**, clearly and never
    auto-started, so you decide where they go.
 
-**Privacy/cost notes:** your API key is stored only in your browser's
-local storage and is sent only to RosterBuddy's own import function on
-each use, which forwards it to OpenAI over HTTPS — it is never logged or
-stored server-side. You are billed directly by OpenAI for each screenshot
-read. This feature is entirely optional; without a key, everything else in
-RosterBuddy works exactly the same via manual entry.
+**Bring your own key instead (optional):** in **Settings → AI-assisted
+import**, anyone can paste their own OpenAI API key to use their own
+account for their imports instead of the shared one — get one at
+[platform.openai.com](https://platform.openai.com/) (a ChatGPT Plus
+subscription is separate from API billing and won't work here). A
+personal key is stored only in that browser's local storage and is never
+sent anywhere except OpenAI, via RosterBuddy's own import function.
+
+**Cost note:** with the shared-key setup, the app owner is billed by
+OpenAI for every screenshot anyone imports — there's currently no
+per-user cap, so keep an eye on usage if this deployment's link is shared
+more widely than intended.
 
 ## Tech stack
 
@@ -114,10 +119,28 @@ npm run start
 
 ## Deploy to Vercel
 
-Import this GitHub repository directly into Vercel — no environment
-variables or extra configuration are required. Vercel will detect the
-Next.js App Router project automatically, including the one serverless
-function under `app/api/import-roster`.
+Import this GitHub repository directly into Vercel — the app runs with
+zero configuration. Vercel will detect the Next.js App Router project
+automatically, including the one serverless function under
+`app/api/import-roster`.
+
+To turn on **AI-assisted screenshot import for everyone** (rather than
+requiring each person to bring their own key), add one environment
+variable:
+
+1. In the Vercel dashboard, open this project → **Settings → Environment
+   Variables**.
+2. Add a variable named `OPENAI_API_KEY` with your OpenAI API key as the
+   value (get one, with some credit added, at
+   [platform.openai.com](https://platform.openai.com/) — a ChatGPT Plus
+   subscription doesn't work here, you need API billing specifically).
+   Leave it applied to all environments (Production/Preview/Development).
+3. Redeploy (Vercel → Deployments → the "⋯" menu on the latest deployment
+   → **Redeploy**) so the running function picks up the new variable.
+
+Without this variable set, the import feature still works for anyone who
+adds their own personal key in Settings — it just won't work automatically
+out of the box for everyone.
 
 ## Current limitations
 

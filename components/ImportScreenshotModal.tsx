@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { ChangeEvent, useState } from "react";
 import Modal from "./Modal";
 import { useApp } from "@/context/AppContext";
@@ -23,8 +22,6 @@ export default function ImportScreenshotModal({ onClose }: { onClose: () => void
   const [rows, setRows] = useState<Row[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [added, setAdded] = useState(false);
-
-  const hasKey = Boolean(league.openaiApiKey);
 
   async function handleFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -88,17 +85,7 @@ export default function ImportScreenshotModal({ onClose }: { onClose: () => void
 
   return (
     <Modal eyebrow="IMPORT FROM ESPN" title="Read a screenshot" onClose={onClose}>
-      {!hasKey && (
-        <div className="rounded-2xl border border-status-watch/25 bg-status-watch/8 p-4 text-[12.5px] leading-relaxed text-white/70">
-          You&apos;ll need to add an OpenAI API key in Settings first — this feature uses it to
-          read the screenshot. Nothing is sent anywhere until you do.
-          <Link href="/settings" onClick={onClose} className="mt-2 block font-bold text-lime-dim">
-            Go to Settings →
-          </Link>
-        </div>
-      )}
-
-      {hasKey && stage !== "review" && !added && (
+      {stage !== "review" && !added && (
         <div>
           <p className="text-[12.5px] leading-relaxed text-white/60">
             Screenshot your ESPN roster or players screen, then pick it below. We&apos;ll read

@@ -122,13 +122,13 @@ export default function SettingsPage() {
           AI-assisted import
         </h2>
         <div className="rounded-2xl border border-white/10 bg-navy-800 p-4">
-          <span className="block text-[13px] font-bold text-white">OpenAI API key</span>
+          <span className="block text-[13px] font-bold text-white">Personal OpenAI API key</span>
           <span className="mt-0.5 block text-[11.5px] leading-relaxed text-white/50">
-            Optional. Powers &ldquo;Import from ESPN screenshot&rdquo; on the Team page — RosterBuddy
-            sends your screenshot and this key to OpenAI to read the players off it. Get a key
-            (and add a little credit) at platform.openai.com. This key is stored only in your
-            browser and is never sent anywhere except OpenAI, via RosterBuddy&apos;s own import
-            function.
+            &ldquo;Import from ESPN screenshot&rdquo; (on the Team page) already works out of the
+            box using a shared key this app was set up with — you don&apos;t need to do anything
+            here. Only set a key below if you&apos;d rather use your own OpenAI account for your
+            imports instead of the shared one. If you do, it&apos;s stored only in your browser
+            and is never sent anywhere except OpenAI, via RosterBuddy&apos;s own import function.
           </span>
           <div className="mt-3 flex gap-2">
             <input

@@ -67,11 +67,17 @@ export async function POST(req: NextRequest) {
   }
 
   const image = typeof body.image === "string" ? body.image : "";
-  const apiKey = typeof body.apiKey === "string" ? body.apiKey.trim() : "";
+  const personalKey = typeof body.apiKey === "string" ? body.apiKey.trim() : "";
+  // A personal key entered in Settings overrides the shared key this app
+  // was deployed with; most users rely on the shared one and never set this.
+  const apiKey = personalKey || process.env.OPENAI_API_KEY || "";
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: "No OpenAI API key found. Add one in Settings first." },
+      {
+        error:
+          "This RosterBuddy deployment doesn't have an OpenAI API key configured yet. Ask whoever set it up to add one, or add your own in Settings.",
+      },
       { status: 400 }
     );
   }
